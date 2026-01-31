@@ -5,7 +5,7 @@ config/myenv.env
 config/litellm_config.yaml
 config/litellm2genai_config.yaml
 
-
+logs
 *.log
 
 # ============================================

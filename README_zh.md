@@ -1,6 +1,6 @@
 # ProjDevBench
 
-[English](README.md) | 中文
+[English](README.md) | 中文 | [项目主页](https://zsworld6.github.io/projdevbench/)
 
 **ProjDevBench**（Project Development Benchmark）是一个用于评估 AI 编程智能体在端到端项目开发任务上表现的基准测试平台。与现有专注于 issue 级别 bug 修复的基准不同，ProjDevBench 评估智能体从高层规范构建完整、可执行软件仓库的能力。
 
