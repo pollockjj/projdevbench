@@ -417,11 +417,14 @@ MIT License
 如果你在研究中使用了 ProjDevBench，请引用：
 
 ```bibtex
-@inproceedings{projdevbench2026,
-  title={ProjDevBench: Benchmarking AI Coding Agents on End-to-End Project Development},
-  author={Lu, Pengrui and Zhang, Shiqi and Hou, Yunzhong and Ye, Lyumanshan and Huang, Chaoyi and Chen, Zixi and Zeng, Ji and Jiang, Hantao and Liu, Pengfei and Wang, Yiwei and Yang, Ming-Hsuan},
-  booktitle={International Conference on Machine Learning (ICML)},
-  year={2026}
+@misc{lu2026projdevbenchbenchmarkingaicoding,
+      title={ProjDevBench: Benchmarking AI Coding Agents on End-to-End Project Development}, 
+      author={Pengrui Lu and Shiqi Zhang and Yunzhong Hou and Lyumanshan Ye and Chaoyi Huang and Zixi Chen and Ji Zeng and Hantao Jiang and Pengfei Liu and Yiwei Wang and Ming-Hsuan Yang},
+      year={2026},
+      eprint={2602.01655},
+      archivePrefix={arXiv},
+      primaryClass={cs.AI},
+      url={https://arxiv.org/abs/2602.01655}, 
 }
 ```
 
