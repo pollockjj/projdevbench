@@ -1,6 +1,6 @@
 # ProjDevBench
 
-[English](README.md) | [中文](README_zh.md) | [Homepage](https://zsworld6.github.io/projdevbenchpage/)
+[English](README.md) | [中文](README_zh.md) | [Homepage](https://zsworld6.github.io/projdevbenchpage/) | [Paper](https://arxiv.org/abs/2602.01655)
 
 **ProjDevBench** (Project Development Benchmark) is a benchmark platform for evaluating AI coding agents on end-to-end project development tasks. Unlike existing benchmarks that focus on issue-level bug fixing, ProjDevBench evaluates agents on their ability to construct complete, executable software repositories from high-level specifications.
 
