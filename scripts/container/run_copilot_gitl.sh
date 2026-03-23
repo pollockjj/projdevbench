@@ -102,34 +102,14 @@ if [ "$GITL_MODE" = "informed" ]; then
 IMPORTANT: Your solution will be graded by an automated judge against hidden test cases including edge cases. Your plan must ensure build compatibility, handle all boundary conditions described or implied by the spec, and produce a submission-ready result. A .gitignore excluding build artifacts is required. The build system uses cmake and make — ensure your CMakeLists.txt is compatible."
 fi
 
-# --- The prompt: skills are the instructions, prompt just activates them ---
-PROMPT="You are executing a coding task under the Grader-in-the-Loop pipeline.
+# --- The prompt: pull down repo, read issues, work on first issue ---
+PROMPT="Clone the repository pollockjj/gitl-pipeclean. Read its CLAUDE.md and skill files. Check the open issues. Work on the first open issue following the skill instructions exactly.
 
-Your tracking issue is #${ISSUE_NUMBER} on pollockjj/gitl-pipeclean.
-Your code workspace is $(pwd).
-The pipeline infrastructure is at /workspace/gitl-infra.
+Your code workspace is $(pwd). Push code changes to ${REPO_URL} using: git push origin master
 
-READ THESE SKILL FILES — they are your PRIMARY instructions:
-- /workspace/gitl-infra/.claude/skills/tdd-plan/SKILL.md
-- /workspace/gitl-infra/.claude/skills/tdd-slice/SKILL.md
-- /workspace/gitl-infra/.claude/skills/qa-plan/SKILL.md
-- /workspace/gitl-infra/.claude/skills/qa-slice/SKILL.md
-
-POSTING PROTOCOL:
-- Post plans and submissions using: python3 /workspace/gitl-infra/scripts/run_tdd_post.py comment pollockjj/gitl-pipeclean {ISSUE_NUMBER} {BODY_FILE}
-- Update issue body using: python3 /workspace/gitl-infra/scripts/run_tdd_post.py update-issue pollockjj/gitl-pipeclean {ISSUE_NUMBER} {BODY_FILE}
-- Invoke QA gate using: python3 /workspace/gitl-infra/scripts/run_qa_gate.py plan pollockjj/gitl-pipeclean {ISSUE_NUMBER}
-- Invoke QA slice gate using: python3 /workspace/gitl-infra/scripts/run_qa_gate.py slice pollockjj/gitl-pipeclean {ISSUE_NUMBER} {SLICE_NUMBER} {SUBMISSION_URL}
-
-Replace {ISSUE_NUMBER} with ${ISSUE_NUMBER} in all commands.
-
-EVIDENCE: Commit evidence to your code repo and push. The QA gate fetches from GitHub.
-
-SCOPE: Read the problem files in $(pwd). Implement the solution. Follow the skills exactly. Do NOT submit to any external judge — your only job is to get all slices through the QA gate.
-
-GIT: Push code changes to ${REPO_URL} using: git push origin master
+The pipeline infrastructure repo is already cloned at /workspace/gitl-infra. Skills are at /workspace/gitl-infra/.claude/skills/. Posting scripts are at /workspace/gitl-infra/scripts/.
 ${INFORMED_BRIEFING}
-Begin now. Read the skills first."
+Begin."
 
 echo "========================================="
 echo "GITL Prompt (skills are primary instructions):"
