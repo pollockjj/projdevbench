@@ -281,7 +281,7 @@ echo "========================================="
 # 不设置超时限制，让Agent自己决定什么时候完成
 #   --model <model>                     Set the AI model to use (choices: "claude-sonnet-4.5", "claude-sonnet-4",
 #                                       "gpt-5")
-copilot -p "${SELECTED_PROMPT}" --model "${MODEL_NAME}" --yolo --no-ask-user -s
+copilot -p "${SELECTED_PROMPT}" --model "${MODEL_NAME}" --yolo --no-ask-user
 
 echo "========================================="
 echo "🎯 Agent session completed"
