@@ -138,38 +138,8 @@ echo "Issue: https://github.com/pollockjj/gitl-pipeclean/issues/${ISSUE_NUMBER}"
 echo "Code repo: ${REPO_URL}"
 echo "========================================="
 
-# --- Post-agent: WE submit to ACMOJ, not the agent ---
+# ACMOJ submission is done separately by the evaluator, not in this script.
 echo "========================================="
-echo "📤 GITL post-agent ACMOJ submission"
-echo "========================================="
-
-export SUBMISSION_LOG_FILE="/workspace/submission_ids.log"
-touch "$SUBMISSION_LOG_FILE"
-
-# Submit the final state of the repo to ACMOJ
-echo "Submitting ${REPO_URL} to ACMOJ problem ${ACMOJ_PROBLEM_ID}..."
-SUBMIT_RESULT=$(python3 /workspace/problem_${PROBLEM_ID}/submit_acmoj/acmoj_client.py \
-    --token "${ACMOJ_TOKEN}" submit \
-    --problem-id "${ACMOJ_PROBLEM_ID}" \
-    --git-url "${REPO_URL}.git" 2>&1)
-echo "Submit result: ${SUBMIT_RESULT}"
-
-# Wait and check status
-SUBMISSION_ID=$(echo "$SUBMIT_RESULT" | python3 -c "import json,sys; print(json.load(sys.stdin).get('id',''))" 2>/dev/null)
-if [ -n "$SUBMISSION_ID" ]; then
-    echo "Submission ID: ${SUBMISSION_ID}"
-    echo "Waiting 30s for grading..."
-    sleep 30
-    STATUS_RESULT=$(python3 /workspace/problem_${PROBLEM_ID}/submit_acmoj/acmoj_client.py \
-        --token "${ACMOJ_TOKEN}" status \
-        --submission-id "${SUBMISSION_ID}" 2>&1)
-    echo "Status: ${STATUS_RESULT}"
-else
-    echo "⚠️ Could not parse submission ID"
-fi
-
-echo "========================================="
-echo "📊 GITL evaluation complete"
-echo "Issue: https://github.com/pollockjj/gitl-pipeclean/issues/${ISSUE_NUMBER}"
+echo "📊 GITL run complete. Code repo ready for external grading."
 echo "Code repo: ${REPO_URL}"
 echo "========================================="
