@@ -300,6 +300,7 @@ else
         "${DOCKER_MOUNT_ARGS[@]}" \
         "${DOCKER_ENV_ARGS[@]}" \
         -e "GITL_MODE=${GITL_MODE:-informed}" \
+        -e "GITL_ISSUE=${GITL_ISSUE:?Required: GITL_ISSUE}" \
         -v "/etc/gitl/github-apps:/etc/gitl/github-apps:ro" \
         --entrypoint /bin/bash \
         prlu/ojbench-agent-runner:latest \

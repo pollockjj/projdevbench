@@ -86,32 +86,14 @@ cd "$WORKSPACE_DIR"
 
 # --- Clone gitl-pipeclean for pipeline infrastructure ---
 echo "📦 Cloning GITL pipeline infrastructure..."
-git clone https://${GITHUB_TOKEN}@github.com/pollockjj/mygitl.git /workspace/gitl-infra 2>&1
+git clone https://${GITHUB_TOKEN}@github.com/pollockjj/gitl-pipeclean.git /workspace/gitl-infra 2>&1
 echo "✅ GITL infrastructure cloned"
 
-# --- Create tracking issue on gitl-pipeclean ---
-echo "📋 Creating tracking issue..."
-ISSUE_TITLE="Benchmark ${PROBLEM_ID}: ${MODEL_NAME} — GITL ${GITL_MODE}"
-ISSUE_BODY="## Benchmark Problem ${PROBLEM_ID}
-
-**Model:** ${MODEL_NAME}
-**Mode:** ${GITL_MODE}
-**Repo:** ${REPO_URL}
-**Timestamp:** ${TIMESTAMP}
-
-Problem files are in the agent workspace. The agent will execute the full GITL pipeline against this issue."
-
-ISSUE_URL=$(cd /workspace/gitl-infra && python3 scripts/post_as_app.py tdd create-issue pollockjj/gitl-pipeclean --title "${ISSUE_TITLE}" --body "${ISSUE_BODY}" 2>&1)
-ISSUE_NUMBER=$(echo "$ISSUE_URL" | grep -oP '/issues/\K\d+')
-
-if [ -z "$ISSUE_NUMBER" ]; then
-    echo "❌ Failed to create tracking issue"
-    echo "Output: $ISSUE_URL"
-    exit 1
-fi
-
-echo "✅ Tracking issue created: #${ISSUE_NUMBER}"
-echo "   URL: ${ISSUE_URL}"
+# --- Issue number: pre-created or passed via GITL_ISSUE env var ---
+: "${GITL_ISSUE?Required: GITL_ISSUE — the pre-created issue number on gitl-pipeclean}"
+ISSUE_NUMBER="${GITL_ISSUE}"
+echo "📋 Using pre-created issue: #${ISSUE_NUMBER}"
+echo "   URL: https://github.com/pollockjj/gitl-pipeclean/issues/${ISSUE_NUMBER}"
 
 # --- Informed briefing ---
 INFORMED_BRIEFING=""
