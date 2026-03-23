@@ -293,11 +293,11 @@ else
    copilot|Copilot)
       echo "🟣 Running Copilot Agent..."
       docker run --rm \
+        --user root \
         "${DOCKER_MOUNT_ARGS[@]}" \
         "${DOCKER_ENV_ARGS[@]}" \
         --entrypoint /bin/bash \
         prlu/ojbench-agent-runner:latest \
-        --user root \
         -c "chmod 777 /workspace && su agent -c 'bash /scripts/run_copilot.sh'"
      ;;
 
