@@ -102,14 +102,27 @@ if [ "$GITL_MODE" = "informed" ]; then
 IMPORTANT: Your solution will be graded by an automated judge against hidden test cases including edge cases. Your plan must ensure build compatibility, handle all boundary conditions described or implied by the spec, and produce a submission-ready result. A .gitignore excluding build artifacts is required. The build system uses cmake and make — ensure your CMakeLists.txt is compatible."
 fi
 
-# --- The prompt: pull down repo, read issues, work on first issue ---
-PROMPT="Clone the repository pollockjj/gitl-pipeclean. Read its CLAUDE.md and skill files. Check the open issues. Work on the first open issue following the skill instructions exactly.
+# --- The prompt ---
+PROMPT="You are operating under a mandatory TDD pipeline. You MUST follow ALL FOUR skill files in order. Skipping any skill or phase is a fatal protocol violation.
+
+STEP 1: Read ALL four skill files. They are your binding instructions:
+  /workspace/gitl-infra/.claude/skills/tdd-plan/SKILL.md
+  /workspace/gitl-infra/.claude/skills/tdd-slice/SKILL.md
+  /workspace/gitl-infra/.claude/skills/qa-plan/SKILL.md
+  /workspace/gitl-infra/.claude/skills/qa-slice/SKILL.md
+
+STEP 2: Read the CLAUDE.md at /workspace/gitl-infra/CLAUDE.md for repository workflow mechanics.
+
+STEP 3: Check open issues on pollockjj/gitl-pipeclean using: gh api /repos/pollockjj/gitl-pipeclean/issues --jq '.[0]'
+
+STEP 4: Execute the tdd-plan skill against that issue. This is MANDATORY. You do not write code until the plan has passed qa-plan.
+
+STEP 5: On qa-plan PASS, execute tdd-slice for each slice. Each slice MUST pass qa-slice before proceeding.
 
 Your code workspace is $(pwd). Push code changes to ${REPO_URL} using: git push origin master
-
-The pipeline infrastructure repo is already cloned at /workspace/gitl-infra. Skills are at /workspace/gitl-infra/.claude/skills/. Posting scripts are at /workspace/gitl-infra/scripts/.
+Posting scripts are at /workspace/gitl-infra/scripts/. The repo for issues is pollockjj/gitl-pipeclean.
 ${INFORMED_BRIEFING}
-Begin."
+Begin by reading the four skill files."
 
 echo "========================================="
 echo "GITL Prompt (skills are primary instructions):"
