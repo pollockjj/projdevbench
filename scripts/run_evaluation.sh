@@ -307,6 +307,7 @@ else
         "${DOCKER_ENV_ARGS[@]}" \
         -e "GITL_MODE=${GITL_MODE:-informed}" \
         -v "${SKILLS_DIR}:/workspace/skills:ro" \
+        -v "/etc/gitl/github-apps:/etc/gitl/github-apps:ro" \
         --entrypoint /bin/bash \
         prlu/ojbench-agent-runner:latest \
         -c "chmod 777 /workspace && su agent -c 'bash /scripts/run_copilot_gitl.sh'"
