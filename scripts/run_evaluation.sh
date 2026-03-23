@@ -295,18 +295,11 @@ else
 
    copilot-gitl|Copilot-GITL)
       echo "🟣 Running Copilot GITL Pipeline Agent..."
-      SKILLS_DIR="$(pwd)/gitl-skills"
-      if [ ! -d "$SKILLS_DIR" ]; then
-        echo "❌ GITL skills not found at $SKILLS_DIR"
-        echo "Copy skills from gitl-pipeclean: cp -r /path/to/gitl-pipeclean/.claude/skills gitl-skills"
-        exit 1
-      fi
       docker run --rm \
         --user root \
         "${DOCKER_MOUNT_ARGS[@]}" \
         "${DOCKER_ENV_ARGS[@]}" \
         -e "GITL_MODE=${GITL_MODE:-informed}" \
-        -v "${SKILLS_DIR}:/workspace/skills:ro" \
         -v "/etc/gitl/github-apps:/etc/gitl/github-apps:ro" \
         --entrypoint /bin/bash \
         prlu/ojbench-agent-runner:latest \
