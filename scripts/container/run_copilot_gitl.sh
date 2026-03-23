@@ -128,10 +128,10 @@ Your code workspace is $(pwd).
 The pipeline infrastructure is at /workspace/gitl-infra.
 
 READ THESE SKILL FILES — they are your PRIMARY instructions:
-- /workspace/gitl-infra/.claude/skills/tdd-plan/SKILL.md
-- /workspace/gitl-infra/.claude/skills/tdd-slice/SKILL.md
-- /workspace/gitl-infra/.claude/skills/qa-plan/SKILL.md
-- /workspace/gitl-infra/.claude/skills/qa-slice/SKILL.md
+- /workspace/skills/tdd-plan/SKILL.md
+- /workspace/skills/tdd-slice/SKILL.md
+- /workspace/skills/qa-plan/SKILL.md
+- /workspace/skills/qa-slice/SKILL.md
 
 POSTING PROTOCOL:
 - Post plans and submissions using: python3 /workspace/gitl-infra/scripts/run_tdd_post.py comment pollockjj/gitl-pipeclean {ISSUE_NUMBER} {BODY_FILE}
