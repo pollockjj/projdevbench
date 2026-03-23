@@ -86,7 +86,7 @@ cd "$WORKSPACE_DIR"
 
 # --- Clone gitl-pipeclean for pipeline infrastructure ---
 echo "📦 Cloning GITL pipeline infrastructure..."
-git clone https://${GITHUB_TOKEN}@github.com/pollockjj/gitl-pipeclean.git /workspace/gitl-infra 2>&1
+git clone https://${GITHUB_TOKEN}@github.com/pollockjj/mygitl.git /workspace/gitl-infra 2>&1
 echo "✅ GITL infrastructure cloned"
 
 # --- Create tracking issue on gitl-pipeclean ---
