@@ -51,25 +51,33 @@ echo "Current Environment Variables:"
 env | grep -E '(PROBLEM|GITHUB_USER|MODEL|TIMESTAMP|GITL)' | grep -v -E '(TOKEN|KEY|AUTH|SECRET)'
 echo "========================================="
 
-# --- Setup workspace (same as baseline) ---
-echo "🚀 Running setting up shell script"
-/scripts/run_agent_base.sh
-
-echo "========================================="
-echo "Setting up shell script completed"
-echo "========================================="
-
+# --- Setup clean workspace — NO problem files, NO submit tools ---
 : "${PROBLEM_ID?Required: PROBLEM_ID}"
-: "${ACMOJ_PROBLEM_ID?Required: ACMOJ_PROBLEM_ID}"
 : "${AGENT_TYPE?Required: AGENT_TYPE}"
 : "${GITHUB_TOKEN?Required: GITHUB_TOKEN}"
-: "${ACMOJ_TOKEN?Required: ACMOJ_TOKEN}"
 : "${MODEL_NAME?Required: MODEL_NAME}"
 
 REPO_NAME="oj-eval-${AGENT_TYPE}-${PROBLEM_ID}-${TIMESTAMP}"
-GITHUB_USER="${GITHUB_USER:-your-oj-account}"
-WORKSPACE_DIR="/workspace/problem_${PROBLEM_ID}"
+GITHUB_USER="${GITHUB_USER:-pollockjj}"
+WORKSPACE_DIR="/workspace/work_${PROBLEM_ID}"
 REPO_URL="https://github.com/${GITHUB_USER}/${REPO_NAME}"
+
+# Create empty workspace and git repo
+mkdir -p "$WORKSPACE_DIR"
+cd "$WORKSPACE_DIR"
+git init
+git commit --allow-empty -m "initial empty commit"
+
+# Create remote repo and push
+gh repo create "${GITHUB_USER}/${REPO_NAME}" --public --confirm 2>&1 || true
+git remote add origin "https://${GITHUB_TOKEN}@github.com/${GITHUB_USER}/${REPO_NAME}.git"
+git push -u origin HEAD:master 2>&1
+
+echo "========================================="
+echo "Clean workspace ready: ${WORKSPACE_DIR}"
+echo "Repo: ${REPO_URL}"
+echo "No problem files. Agent reads the issue for the problem definition."
+echo "========================================="
 
 # GITL mode: cold or informed
 GITL_MODE="${GITL_MODE:-informed}"
