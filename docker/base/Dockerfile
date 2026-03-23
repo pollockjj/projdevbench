@@ -19,7 +19,7 @@ RUN apt-get update && apt-get install -y \
  && ln -sf /usr/bin/python3.12 /usr/bin/python3
 
 # 安装 Python 依赖
-RUN python3 -m pip install requests --break-system-packages
+RUN python3 -m pip install requests PyJWT cryptography --break-system-packages
 
 # 安装GitHub CLI
 RUN curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg \
