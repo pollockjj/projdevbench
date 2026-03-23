@@ -297,7 +297,8 @@ else
         "${DOCKER_ENV_ARGS[@]}" \
         --entrypoint /bin/bash \
         prlu/ojbench-agent-runner:latest \
-        -c "sudo chmod 777 /workspace && bash /scripts/run_copilot.sh"
+        --user root \
+        -c "chmod 777 /workspace && su agent -c 'bash /scripts/run_copilot.sh'"
      ;;
 
 
