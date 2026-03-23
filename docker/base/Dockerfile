@@ -34,8 +34,8 @@ RUN npm install -g @google/gemini-cli
 # 安装Claude Code
 RUN npm install -g @anthropic-ai/claude-code
 
-# copilot cli — gh downloads the binary on first invocation via `gh copilot`
-# No separate install needed
+# Install GitHub Copilot CLI
+RUN npm install -g @github/copilot@1.0.10
 
 # 安装Codex (指定最新版本)
 RUN npm install -g @openai/codex@0.91.0
@@ -51,7 +51,8 @@ RUN echo "Verifying installations..." && \
  iverilog -V && \
  gh --version && \
  gemini --version && \
- claude --version
+ claude --version && \
+ copilot --version
 
 WORKDIR /workspace
 

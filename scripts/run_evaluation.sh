@@ -197,14 +197,6 @@ if [ "$DEBUG_MODE" = "debug" ]; then
       ;;
       copilot|Copilot)
      AGENT_SPECIFIC_ENV=()
-     # Mount the host copilot binary into the container
-     COPILOT_BIN=$(readlink -f "$(which copilot)" 2>/dev/null || echo "")
-     if [ -n "$COPILOT_BIN" ] && [ -f "$COPILOT_BIN" ]; then
-       DOCKER_MOUNT_ARGS+=(-v "${COPILOT_BIN}:/usr/local/bin/copilot:ro")
-     else
-       echo "❌ copilot binary not found on host"
-       exit 1
-     fi
       ;;
  esac
   
