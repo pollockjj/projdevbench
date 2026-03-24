@@ -139,11 +139,12 @@ else
     unset OPENAI_API_KEY
     unset CODEX_BASE_URL
     unset CODEX_API_KEY
-    
+
     mkdir -p ~/.codex
-    # NOTE: You need to replace these placeholder tokens with your actual OpenAI tokens
-    # Run `codex auth` to generate a valid auth.json file, then copy the tokens here
-    cat <<EOT > ~/.codex/auth.json
+    # Only write placeholder if no valid auth.json exists (may have been mounted)
+    if [ ! -f ~/.codex/auth.json ] || grep -q "YOUR_OPENAI" ~/.codex/auth.json 2>/dev/null; then
+        echo "WARNING: No valid auth.json found. Writing placeholder — codex auth will fail."
+        cat <<EOT > ~/.codex/auth.json
 {
   "OPENAI_API_KEY": null,
   "tokens": {
@@ -155,6 +156,9 @@ else
   "last_refresh": "2025-01-01T00:00:00.000000Z"
 }
 EOT
+    else
+        echo "Using existing auth.json (mounted from host)"
+    fi
 fi
 
 echo "Codex API configured"

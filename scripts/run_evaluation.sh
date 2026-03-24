@@ -248,27 +248,31 @@ else
   claude-code|"Claude Code")
     echo "🤖 Running Claude Code Agent..."
     docker run --rm \
+      --user root \
       "${DOCKER_MOUNT_ARGS[@]}" \
       "${DOCKER_ENV_ARGS[@]}" \
       -e "ANTHROPIC_BASE_URL=${ANTHROPIC_BASE_URL}" \
       -e "ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}" \
+      -v "${HOME}/.claude/.credentials.json:/tmp/claude_creds.json:ro" \
       --entrypoint /bin/bash \
       prlu/ojbench-agent-runner:latest \
-      -c "bash /scripts/run_claude_code.sh"
+      -c "mkdir -p /home/agent/.claude && cp /tmp/claude_creds.json /home/agent/.claude/.credentials.json && chown -R agent:agent /home/agent/.claude && su agent -c 'bash /scripts/run_claude_code.sh'"
     ;;
 
    codex|Codex)
      echo "🟣 Running Codex Agent..."
      docker run --rm \
+       --user root \
        "${DOCKER_MOUNT_ARGS[@]}" \
        "${DOCKER_ENV_ARGS[@]}" \
        -e "OPENAI_API_KEY=${OPENAI_API_KEY}" \
        -e "OPENAI_BASE_URL=${OPENAI_BASE_URL}" \
        -e "CODEX_API_KEY=${CODEX_API_KEY}" \
        -e "CODEX_BASE_URL=${CODEX_BASE_URL}" \
+       -v "${HOME}/.codex/auth.json:/tmp/codex_auth.json:ro" \
        --entrypoint /bin/bash \
        prlu/ojbench-agent-runner:latest \
-       -c "bash /scripts/run_codex.sh"
+       -c "mkdir -p /home/agent/.codex/sessions /home/agent/.codex/skills /home/agent/.codex/log && cp /tmp/codex_auth.json /home/agent/.codex/auth.json && chown -R agent:agent /home/agent/.codex && su agent -c 'bash /scripts/run_codex.sh'"
      ;;
    
    augment|Augment)
