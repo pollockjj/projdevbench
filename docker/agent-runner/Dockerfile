@@ -19,6 +19,10 @@ RUN chmod +x /scripts/*.sh
 RUN mkdir -p /workspace /problems
 RUN chown -R agent:agent /workspace /problems 
 
+# Update CLIs to latest as root (system-wide)
+RUN npm install -g @anthropic-ai/claude-code@latest
+RUN npm install -g @openai/codex@latest
+
 USER agent
 WORKDIR /workspace
 # 在切换到 agent 用户之后设置
